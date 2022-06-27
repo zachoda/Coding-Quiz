@@ -1,6 +1,8 @@
 var startButton = document.getElementById("start-button");
 var questionContainerEl = document.getElementById("question-container");
 var timerEl = document.getElementById("countdown");
+var questionElement = document.getElementById("question")
+var answerButtonElement = document.getElementById("answer-buttons")
 var questionBankObj = [
   {
     question: "Arrays in JavaScript can be used to store __",
@@ -60,14 +62,15 @@ function startGame() {
 }
 
 // move to next question after making selection
-function nextQuestion() {}
+function nextQuestion() {
+    
+    
+}
 
 // choosing an answer & having response
 function selectAnswer() {}
-// what happens on choosing the right answer
-function rightAnswer() {}
-// what happens on choosing the wrong answer
-function wrongAnswer() {}
+
+
 // timer on quiz
 function countdownTimer() {
   var timer = 25;
@@ -92,5 +95,7 @@ function countdownTimer() {
 }
 
 //start timer
-function startTimer() {}
+function startTimer() {
+
+}
 //high score logged with initials
