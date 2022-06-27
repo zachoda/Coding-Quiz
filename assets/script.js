@@ -78,8 +78,19 @@ questionBankArray++;
 // choosing an answer & having response
 function selectAnswer(event) {
   var chosenAnswer = event.target.getAttribute('choice')
-  console.log(chosenAnswer);
-}
+  if (choice.correct) {
+    choiceBTN.dataset.correct = choice.correct
+    window.alert("That was Correct!!")
+    questionElement++;
+
+  } else {
+    window.alert("Sorry, that was Incorrect.")
+    questionElement++;
+    timeLeft = timeLeft-10;
+  }
+choiceBTN.addEventListener("click", selectAnswer)
+answerButtonElement.appendChild(button)
+  }
 
 
 // timer on quiz
