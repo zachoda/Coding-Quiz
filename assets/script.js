@@ -3,7 +3,7 @@ var questionContainerEl = document.getElementById("question-container");
 var timerEl = document.getElementById("countdown");
 var questionElement = document.getElementById("question")
 var answerButtonElement = document.getElementById("answer-buttons")
-var questionBankObj = [
+var questionBankArray = [
   {
     question: "Arrays in JavaScript can be used to store __",
     choice: [
@@ -63,12 +63,23 @@ function startGame() {
 
 // move to next question after making selection
 function nextQuestion() {
-    
-    
+    questionElement.textContent = questionBankArray[0].question;
+    for (i=0; i<4; i++) {
+        var choiceBTN = document.createElement('button')
+    choiceBTN.textContent = questionBankArray[0].choice[i].text
+    answerButtonElement.append(choiceBTN);
+    choiceBTN.addEventListener("click",selectAnswer)
+    choiceBTN.setAttribute("choice", questionBankArray[0].choice[i].correct)
+    }
+questionBankArray++;
+//variable to change the question element by one 
 }
 
 // choosing an answer & having response
-function selectAnswer() {}
+function selectAnswer(event) {
+  var chosenAnswer = event.target.getAttribute('choice')
+  console.log(chosenAnswer);
+}
 
 
 // timer on quiz
