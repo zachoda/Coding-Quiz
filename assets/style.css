@@ -34,8 +34,9 @@ body {
     font-size: 25px;
 
 }
+
 .hide {
-    
+opacity: 0%;
 }
 .btn:hover {
     background-color: rgb(221, 202, 239);
