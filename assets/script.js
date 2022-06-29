@@ -4,7 +4,11 @@ var timerEl = document.getElementById("countdown");
 var questionElement = document.getElementById("question");
 var answerButtonElement = document.getElementById("answer-buttons");
 var currentQuestion = 0;
-var timeLeft = 25;
+var timeLeft = 40;
+// var highScore = {
+//   name: enterInit,
+//   score: timeLeft
+// }
 var questionBankArray = [
   {
     question: "Arrays in JavaScript can be used to store __",
@@ -114,48 +118,58 @@ function nextQuestion() {
   buttonFour.textContent = questionBankArray[currentQuestion].choice[3].text;
 
   currentQuestion++;
+  //Need to add a variable to end quiz when last Q answered
 }
 // choosing an answer & having response
 function selectAnswer(event) {
   var chosenAnswer = event.target.getAttribute("choice");
   if (chosenAnswer==="true") {
-    // choiceBTN.dataset.correct = choice.correct
     window.alert("That was Correct!!");
     
   } else {
     window.alert("Sorry, that was Incorrect.");
     timeLeft = timeLeft - 10;
   }
-  //answerButtonElement.appendChild(button)
   nextQuestion();
 }
-//choiceBTN.addEventListener("click", selectAnswer)
+
+function endQuiz() {
+  if (questionElement.length < currentQuestion + 1) {
+    questionElement.classList.add("hide");
+  }
+}
 
 // timer on quiz
 function countdownTimer() {
   var timeInterval = setInterval(function () {
-    if (timeLeft > 1) {
-      console.log(timeLeft)
+    if (timeLeft > 10) {
       timerEl.textContent = timeLeft;
       timeLeft--;
-      //timeLeft.style.color = "purple";
-      //timeLeft.style.fontSize = 10;
+      timerEl.style.color = "purple";
+      timerEl.style.fontSize = 10;
     } else if (timeLeft <= 10) {
       timerEl.textContent = "ONLY " + timeLeft + " SECONDS REMAINING!!";
       timeLeft--;
-      //timeLeft.style.color = "red";
-      //timeLeft.style.fontSize = 15;
-      //timeLeft.style.fontStyle = "bolder";
+     timerEl.style.color = "red";
+      timerEl.style.fontSize = 15;
+      timerEl.style.fontStyle = "bolder";
     } else {
-      timerEl.textContent = "";
+      timeLeft <= 0;
       clearInterval(timeInterval);
-      displayMessage();
+      fullReset();
     }
   }, 1000);
 }
 
-//start timer
-function startTimer() {}
+// function fullReset() {
+// timeLeft = 0;
+// questionContainerEl.setAttribute("hide");
+// function saveScore()
+// }
+
 //high score logged with initials
+function saveScore() {
+  window.alert("The Quiz is done. Your score is " + timeLeft);
+}
 // take time left and log as value, store in the localStorage
 // create a separate HTML for the high score page that shows score and has input for initials; links to first page
