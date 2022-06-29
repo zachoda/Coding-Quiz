@@ -4,6 +4,7 @@ var timerEl = document.getElementById("countdown");
 var questionElement = document.getElementById("question");
 var answerButtonElement = document.getElementById("answer-buttons");
 var currentQuestion = 0;
+var timeLeft = 25;
 var questionBankArray = [
   {
     question: "Arrays in JavaScript can be used to store __",
@@ -60,6 +61,7 @@ function startGame() {
   startButton.classList.add("hide");
   questionContainerEl.classList.remove("hide");
   firstQuestion();
+  countdownTimer();
 }
 
 // move to next question after making selection
@@ -74,21 +76,54 @@ function firstQuestion() {
       "choice",
       questionBankArray[currentQuestion].choice[i].correct
     );
+    choiceBTN.setAttribute("id", i);
   }
   currentQuestion++;
   //variable to change the question element by one
 }
-function nextQuestion() {}
+function nextQuestion() {
+  questionElement.innerHTML = questionBankArray[currentQuestion].question;
+  console.log(questionBankArray[currentQuestion].question)
+
+  var buttonOne = document.getElementById("0");
+  var buttonTwo = document.getElementById("1");
+  var buttonThree = document.getElementById("2");
+  var buttonFour = document.getElementById("3");
+  
+  
+  buttonOne.setAttribute(
+    "choice",
+    questionBankArray[currentQuestion].choice[0].correct
+  );
+  buttonTwo.setAttribute(
+    "choice",
+    questionBankArray[currentQuestion].choice[1].correct
+  );
+  buttonThree.setAttribute(
+    "choice",
+    questionBankArray[currentQuestion].choice[2].correct
+  );
+  buttonFour.setAttribute(
+    "choice",
+    questionBankArray[currentQuestion].choice[3].correct
+  );
+
+  buttonOne.textContent = questionBankArray[currentQuestion].choice[0].text;
+  buttonTwo.textContent = questionBankArray[currentQuestion].choice[1].text;
+  buttonThree.textContent = questionBankArray[currentQuestion].choice[2].text;
+  buttonFour.textContent = questionBankArray[currentQuestion].choice[3].text;
+
+  currentQuestion++;
+}
 // choosing an answer & having response
 function selectAnswer(event) {
   var chosenAnswer = event.target.getAttribute("choice");
-  if (chosenAnswer) {
+  if (chosenAnswer==="true") {
     // choiceBTN.dataset.correct = choice.correct
     window.alert("That was Correct!!");
-    questionElement++;
+    
   } else {
     window.alert("Sorry, that was Incorrect.");
-    questionElement++;
     timeLeft = timeLeft - 10;
   }
   //answerButtonElement.appendChild(button)
@@ -98,21 +133,21 @@ function selectAnswer(event) {
 
 // timer on quiz
 function countdownTimer() {
-  var timer = 25;
-  var timeInterval = setInverval(function () {
+  var timeInterval = setInterval(function () {
     if (timeLeft > 1) {
-      timer.El.textContent = timeLeft;
+      console.log(timeLeft)
+      timerEl.textContent = timeLeft;
       timeLeft--;
-      timeLeft.style.color = "purple";
-      timeLeft.style.fontSize = 10;
+      //timeLeft.style.color = "purple";
+      //timeLeft.style.fontSize = 10;
     } else if (timeLeft <= 10) {
       timerEl.textContent = "ONLY " + timeLeft + " SECONDS REMAINING!!";
       timeLeft--;
-      timeLeft.style.color = "red";
-      timeLeft.style.fontSize = 15;
-      timeLeft.style.fontStyle = "bolder";
+      //timeLeft.style.color = "red";
+      //timeLeft.style.fontSize = 15;
+      //timeLeft.style.fontStyle = "bolder";
     } else {
-      timer.textContent = "";
+      timerEl.textContent = "";
       clearInterval(timeInterval);
       displayMessage();
     }
