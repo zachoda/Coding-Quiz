@@ -1,8 +1,9 @@
 var startButton = document.getElementById("start-button");
 var questionContainerEl = document.getElementById("question-container");
 var timerEl = document.getElementById("countdown");
-var questionElement = document.getElementById("question")
-var answerButtonElement = document.getElementById("answer-buttons")
+var questionElement = document.getElementById("question");
+var answerButtonElement = document.getElementById("answer-buttons");
+var currentQuestion = 0;
 var questionBankArray = [
   {
     question: "Arrays in JavaScript can be used to store __",
@@ -58,40 +59,42 @@ startButton.addEventListener("click", startGame);
 function startGame() {
   startButton.classList.add("hide");
   questionContainerEl.classList.remove("hide");
-  nextQuestion();
+  firstQuestion();
 }
 
 // move to next question after making selection
-function nextQuestion() {
-    questionElement.textContent = questionBankArray[0].question;
-    for (i=0; i<4; i++) {
-        var choiceBTN = document.createElement('button')
-    choiceBTN.textContent = questionBankArray[0].choice[i].text
+function firstQuestion() {
+  questionElement.textContent = questionBankArray[currentQuestion].question;
+  for (i = 0; i < 4; i++) {
+    var choiceBTN = document.createElement("button");
+    choiceBTN.textContent = questionBankArray[currentQuestion].choice[i].text;
     answerButtonElement.append(choiceBTN);
-    choiceBTN.addEventListener("click",selectAnswer)
-    choiceBTN.setAttribute("choice", questionBankArray[0].choice[i].correct)
-    }
-questionBankArray++;
-//variable to change the question element by one 
+    choiceBTN.addEventListener("click", selectAnswer);
+    choiceBTN.setAttribute(
+      "choice",
+      questionBankArray[currentQuestion].choice[i].correct
+    );
+  }
+  currentQuestion++;
+  //variable to change the question element by one
 }
-
+function nextQuestion() {}
 // choosing an answer & having response
 function selectAnswer(event) {
-  var chosenAnswer = event.target.getAttribute('choice')
-  if (choice.correct) {
-    choiceBTN.dataset.correct = choice.correct
-    window.alert("That was Correct!!")
+  var chosenAnswer = event.target.getAttribute("choice");
+  if (chosenAnswer) {
+    // choiceBTN.dataset.correct = choice.correct
+    window.alert("That was Correct!!");
     questionElement++;
-
   } else {
-    window.alert("Sorry, that was Incorrect.")
+    window.alert("Sorry, that was Incorrect.");
     questionElement++;
-    timeLeft = timeLeft-10;
+    timeLeft = timeLeft - 10;
   }
-choiceBTN.addEventListener("click", selectAnswer)
-answerButtonElement.appendChild(button)
-  }
-
+  //answerButtonElement.appendChild(button)
+  nextQuestion();
+}
+//choiceBTN.addEventListener("click", selectAnswer)
 
 // timer on quiz
 function countdownTimer() {
@@ -117,7 +120,7 @@ function countdownTimer() {
 }
 
 //start timer
-function startTimer() {
-
-}
+function startTimer() {}
 //high score logged with initials
+// take time left and log as value, store in the localStorage
+// create a separate HTML for the high score page that shows score and has input for initials; links to first page
